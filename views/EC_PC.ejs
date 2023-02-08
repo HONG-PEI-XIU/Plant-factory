@@ -1,0 +1,68 @@
+
+    <script>
+      var date=new Array;
+      var EC=new Array;
+      var PH=new Array;
+        <% for ( var i = 0 ; i < D.length ; i++){ %>
+  
+          date = date.concat([<%= D[i].time.getFullYear()%>+'/'+<%=D[i].time.getMonth()+1%>+'/'+<%=D[i].time.getDate()%>]);
+          EC =EC.concat([<%= D[i].EC%>]);
+          PH=PH.concat([<%= D[i].PH%>]);
+        <% } %>
+       
+      
+          
+var chart = Highcharts.chart('EC_PC', {
+  chart: {
+        height: 300,
+        type: 'line',
+        
+    },
+title: {
+  text: 'EC_PH'
+},
+
+subtitle: {
+  text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>'
+},
+
+yAxis: {
+  title: {
+    text: 'mS/㎝'
+  }
+},
+
+xAxis: {
+      categories:  date,
+      crosshair: true
+    },
+
+
+
+
+series: [{
+  name: 'EC',
+  data: EC
+}, {
+  name: 'PH',
+  data: PH
+}],
+
+responsive: {
+  rules: [{
+    condition: {
+      maxheight: 200
+    },
+    chartOptions: {
+      legend: {
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom'
+      }
+    }
+  }]
+}
+
+});
+
+</script>

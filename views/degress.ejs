@@ -1,0 +1,65 @@
+
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['gauge']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Label', 'Value'],
+        <% for ( var i = 0 ; i < C.length ; i++){ %>
+        ['室內溫度°C', <%= C[i].temp%> ],
+        
+
+        <% } %>
+        
+        
+      ]);
+
+
+      var options = {
+        width: 300, height: 200,
+        redFrom: 70, redTo: 100,
+        yellowFrom:50, yellowTo: 70,
+        minorTicks: 5
+      };
+
+      var chart = new google.visualization.Gauge(document.getElementById('degress'));
+      chart.draw(data, options);
+      
+    }
+
+    
+  </script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gauge']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Label', 'Value'],
+        <% for ( var i = 0 ; i < C.length ; i++){ %>
+        
+        ['濕度%', <%= C[i].hum%>],
+
+        <% } %>
+        
+        
+      ]);
+
+
+      var options = {
+        width: 300, height: 200,
+        redFrom: 90, redTo: 100,
+        yellowFrom:80, yellowTo: 90,
+        minorTicks: 5
+      };
+
+      var chart = new google.visualization.Gauge(document.getElementById('hum'));
+      chart.draw(data, options);
+      
+    }
+
+    
+  </script>

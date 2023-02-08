@@ -1,0 +1,32 @@
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawLogScales);
+
+function drawLogScales() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', '水位');
+      data.addColumn('number', '閥值');
+
+      data.addRows([
+        [0, 0, 50],    [1, 10, 50],   [2, 23, 50],  [3, 17, 50],   [4, 18, 50],  [5, 9, 50],
+        [6, 11, 50],   [7, 27, 50],  [8, 33, 50],  [9, 40, 50],  [10, 32, 50], [11, 35, 50],
+        [12, 30, 50]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Time',
+          
+        },
+        vAxis: {
+          title: '0',
+          
+        },
+        colors: ['#a52714', '#097138']
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('waterlevel'));
+      chart.draw(data, options);
+    }
+</script>

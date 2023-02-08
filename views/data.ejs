@@ -1,0 +1,42 @@
+<script>
+   var type ='<%= D[0].name%>'
+    if (type.substr(0,5) == 'ltjwg') {
+       var test1 ='綠脆捲萵苣'
+       document.getElementById('type').textContent = test1; 
+
+    } 
+    if (type.substr(0,5) == 'zxmwg') {
+       var test1 ='紫橡木萵苣'
+       document.getElementById('type').textContent = test1; 
+
+    } 
+    document.getElementById('PH').textContent = <%= D[0].PH%>; 
+    document.getElementById('EC').textContent = <%= D[0].EC%>; 
+    document.getElementById('temp').textContent = <%= D[0].temp%>; 
+    document.getElementById('humee').textContent = <%= D[0].hum%>; 
+
+    document.getElementById('time77').textContent = <%= D[0].time%>; 
+    document.getElementById('gg').textContent = <%= D[0].growth%>+'%'; 
+</script>
+<div class="notice__box">
+    <div class="notice__item">參數設定值</div>
+    
+    
+    <HR>
+    <div class="notice__item"><i class="fa fa-leaf fa-xl"></i>辨識結果:<span id="type"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+    <HR>
+    <div class="notice__item"><i class="fa fa-glass-water fa-lg"></i>EC值:<span id="EC" style="color: rgb(134, 0, 0);"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+    <HR>
+    <div class="notice__item"><i class="fa fa-glass-water-droplet fa-lg"></i>PH值:<span id="PH"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+    <HR> 
+    <div class="notice__item"><i class="fa fa-temperature-half fa-xl"></i>室內溫度:<span id="temp"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+    <HR>
+    <div class="notice__item"><i class="fa fa-cloud-showers-water fa-lg"></i>濕度:<span id="humee"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+    <HR>
+    <div class="notice__item"><i class="fa fa-clock fa-lg"></i>種植剩餘時間:<span id="time77"></span></div>
+    <HR>
+    <div class="notice__item"> <i class="fa fa-clock fa-lg"></i>成長進度:<span id="gg"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></span></div>
+         
+ </div>
+ 
+ 

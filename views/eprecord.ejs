@@ -1,0 +1,69 @@
+
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['time', 'EC', 'PH'],
+      <% for ( var i = D.length-1 ; i >= 0 ; i--){ %>
+
+        [ <%= D[i].time.getFullYear()%>+'/'+<%=D[i].time.getMonth()+1%>+'/'+<%=D[i].time.getDate()%>+'  '+<%=D[i].time.getHours()%>+':'+<%=D[i].time.getMinutes()%>+':'+<%=D[i].time.getSeconds()%>, <%= D[i].EC%> , <%= D[i].PH%>],
+      <% } %>
+     
+    ]);
+
+    var options = {
+      chart: {
+        title: 'Company Performance',
+        subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+      }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+  }
+  
+</script>
+
+ <div class="center">
+  <h2>EC-PH 歷史紀錄</h2>
+    <div class="container2 ">
+    <table id="table_id">
+    <thead>
+        <tr class="table-header">
+            <th class="col col-1">time</th>
+            <th class="col col-2">EC</th>
+            <th class="col col-3">PH </th>
+        </tr>
+    </thead>
+    <tbody >
+      <% for ( var i = D.length-1 ; i >= 0 ; i--){ %>
+        
+        <tr>
+            <td class="col col-1"><%= D[i].time.getFullYear()%>/<%=D[i].time.getMonth()+1%>/<%=D[i].time.getDate()%> <%=D[i].time.getHours()%>:<%=D[i].time.getMinutes()%>:<%=D[i].time.getSeconds()%></td>
+            <td class="col col-2"><%= D[i].EC%></td>
+            <td class="col col-3"><%= D[i].PH%></td>
+        </tr>
+
+<% } %>
+        
+    </tbody>
+</table>
+</div>
+<span id='table_page'></span>
+  </div>
+    
+          
+          
+         
+    
+    
+
+            
+                  
+            <script>$("#table_id").tablepage($("#table_page"), 9);</script>        
+  
+           
+            

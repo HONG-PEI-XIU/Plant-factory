@@ -1,0 +1,643 @@
+
+<script>
+
+     console.log('<%= D %>');
+    var NowDate = new Date();
+
+    var Year=NowDate.getFullYear()-1911;
+
+    var Month= NowDate.getMonth()+1;
+    var Yearold=NowDate.getFullYear()-1912;
+    var Monthold= NowDate.getMonth()-7;
+    if(Monthold<0){
+      Monthold=Monthold*-1;
+      
+      Yearold=Yearold-1;
+    }
+      if(Month<10){
+      Month='0'+Month;
+      console.log(Month);
+      }else{
+        Month=Month;
+      }
+      if(Monthold<10){
+        Monthold='0'+Monthold;
+     
+      }else{
+        Monthold=Monthold;
+      }
+    var getDate=NowDate.getDate();
+    var date=new Array;
+    var Trans_Quantity=new Array;
+    var Avg_Price=new Array;
+
+    var week=0;
+    var weekdate=0;
+    var weekTrans=0;
+    var weekAvg=0;
+
+    var weekp=0;
+    if(getDate<10){
+      getDate='0'+getDate;
+      console.log(getDate);
+    }else{
+      getDate=getDate;
+    }
+    
+    $.get("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+(Yearold)+'.'+ (Monthold)+'.'+getDate+"&End_time="+(Year)+'.'+ (Month)+'.'+getDate+"&CropName=%E8%90%B5%E8%8B%A3%E8%8F%9C-%E6%B0%B4%E8%80%95&MarketName=<%= D %>",
+    function(res){ console.log(res.Data);
+      
+      for(i=res.Data.length;i>=1;i--){
+
+        if(res.Data[i]){
+          week++;
+          if(res.Data[i].CropName=='萵苣菜-水耕' || res.Data[i].CropName=='休市'){
+           // if(res.Data[i].CropName=='萵苣菜-水耕'){
+              weekp++;
+           // }
+            if(week<7){
+              weekTrans=weekTrans+res.Data[i].Trans_Quantity;
+              weekAvg =weekAvg+res.Data[i].Avg_Price;
+              
+            }else{
+              date= date.concat([res.Data[i].TransDate]);
+              Trans_Quantity= Trans_Quantity.concat([weekTrans]);
+              Avg_Price=  Avg_Price.concat([parseInt(weekAvg/weekp)]);
+              week=0;
+              weekTrans=0;
+              weekAvg=0;
+              weekp=0;
+            }
+            
+          } 
+         
+            
+        } 
+        
+      }
+
+      console.log(date);
+    
+      
+          
+        Highcharts.chart('container', {
+    chart: {
+      zoomType: 'xy',
+      width:800
+    },
+    title: {
+      text: '每周趨勢圖(一年半以來)',
+      align: 'left'
+    },
+    subtitle: {
+      text: '<%= D %>'
+    },
+    xAxis: [{
+      categories:  date,
+      crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+      labels: {
+        format: '{value}(元/公斤)',
+        style: {
+          color: '#ED561B'
+        }
+      },
+      title: {
+        text: '價格',
+        style: {
+          color: '#ED561B'
+        }
+      }
+    }, { // Secondary yAxis
+      title: {
+        text: '成交量',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      labels: {
+        format: '{value} 公噸',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'left',
+      x: 80,
+      verticalAlign: 'top',
+      y: 80,
+      floating: true,
+      backgroundColor:
+        Highcharts.defaultOptions.legend.backgroundColor || // theme
+        'rgba(255,255,255,0.85)'
+    },
+    series: [{
+      name: '交易量',
+      type: 'column',
+      yAxis: 1,
+      data: Trans_Quantity,
+        
+      tooltip: {
+        valueSuffix: '公噸'
+      }
+  
+    }, {
+      name: '價格',
+      type: 'spline',
+      data:  Avg_Price,
+        color:'#ED561B',
+      tooltip: {
+        valueSuffix: '(元/公斤)'
+      }
+    }]
+  });
+    
+
+
+          $(".p1").html(Avg_Price[Avg_Price.length-1]);
+          $(".n1").html('推薦NO.1萵苣菜-水耕');
+          $(".t1").html('本周平均交易價');
+          $(".tq1").html(Trans_Quantity[Trans_Quantity.length-1]);
+          $(".p2").html(parseInt(Avg_Price[Avg_Price.length-1]*1.67));
+    
+});
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var date2=new Array;
+    var Trans_Quantity2=new Array;
+    var Avg_Price2=new Array;
+
+    var week2=0;
+    var weekdate2=0;
+    var weekTrans2=0;
+    var weekAvg2=0;
+
+    var weekp2=0;
+
+
+$.get("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+(Yearold)+'.'+ (Monthold)+'.'+getDate+"&End_time="+(Year)+'.'+ (Month)+'.'+getDate+"&CropName=%E5%B0%8F%E7%99%BD%E8%8F%9C-%E6%B0%B4%E8%80%95&MarketName=<%= D %>",
+    function(res){ console.log(res.Data);
+      
+      for(i=res.Data.length;i>=1;i--){
+
+        if(res.Data[i]){
+          week2++;
+          if(res.Data[i].CropName=='小白菜-水耕' || res.Data[i].CropName=='休市'){
+            //if(res.Data[i].CropName=='小白菜-水耕'){
+              weekp2++;
+           // }
+            if(week2<7){
+              weekTrans2=weekTrans2+res.Data[i].Trans_Quantity;
+              weekAvg2 =weekAvg2+res.Data[i].Avg_Price;
+            }else{
+              date2= date2.concat([res.Data[i].TransDate]);
+              Trans_Quantity2= Trans_Quantity2.concat([weekTrans2]);
+              Avg_Price2=  Avg_Price2.concat([parseFloat((weekAvg2/weekp2).toFixed(2))]);
+              week2=0;
+              weekTrans2=0;
+              weekAvg2=0;
+              weekp2=0;
+            }
+            
+          } 
+         
+            
+        } 
+        
+      }
+
+      console.log(date2);
+    
+      
+          
+        Highcharts.chart('container2', {
+    chart: {
+      zoomType: 'xy',
+      width:800
+    },
+    title: {
+      text: '每周趨勢圖(一年半以來)',
+      align: 'left'
+    },
+    subtitle: {
+      text: '<%= D %>'
+    },
+    xAxis: [{
+      categories:  date2,
+      crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+      labels: {
+        format: '{value}(元/公斤)',
+        style: {
+          color: '#ED561B'
+        }
+      },
+      title: {
+        text: '價格',
+        style: {
+          color: '#ED561B'
+        }
+      }
+    }, { // Secondary yAxis
+      title: {
+        text: '成交量',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      labels: {
+        format: '{value} 公噸',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'left',
+      x: 80,
+      verticalAlign: 'top',
+      y: 80,
+      floating: true,
+      backgroundColor:
+        Highcharts.defaultOptions.legend.backgroundColor || // theme
+        'rgba(255,255,255,0.25)'
+    },
+    series: [{
+      name: '交易量',
+      type: 'column',
+      yAxis: 1,
+      data: Trans_Quantity2,
+        
+      tooltip: {
+        valueSuffix: '公噸'
+      }
+  
+    }, {
+      name: '價格',
+      type: 'spline',
+      data:  Avg_Price2,
+        color:'#ED561B',
+      tooltip: {
+        valueSuffix: '(元/公斤)'
+      }
+    }]
+  });
+    
+
+
+          $(".p3").html(Avg_Price2[Avg_Price2.length-1]);
+          $(".n2").html('推薦NO.2小白菜-水耕');
+          $(".t2").html('本周平均交易價');
+          $(".tq2").html(Trans_Quantity2[Trans_Quantity2.length-1]);
+          $(".p4").html((Avg_Price2[Avg_Price2.length-1]*1.67));
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+    var date3=new Array;
+    var Trans_Quantity3=new Array;
+    var Avg_Price3=new Array;
+
+    var week3=0;
+    var weekdate3=0;
+    var weekTrans3=0;
+    var weekAvg3=0;
+
+    var weekp3=0;
+
+
+$.get("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+(Yearold)+'.'+ (Monthold)+'.'+getDate+"&End_time="+(Year)+'.'+ (Month)+'.'+getDate+"&CropCode=LG8&MarketName=<%= D %>",
+    function(res){ console.log(res.Data);
+      
+      for(i=res.Data.length;i>=1;i--){
+
+        if(res.Data[i]){
+          week3++;
+          if(res.Data[i].CropName=='芹菜-水耕' || res.Data[i].CropName=='休市'){
+           // if(res.Data[i].CropName=='芹菜-水耕'){
+              weekp3++;
+           // }
+            if(week3<7){
+              weekTrans3=weekTrans3+res.Data[i].Trans_Quantity;
+              weekAvg3 =weekAvg3+res.Data[i].Avg_Price;
+            }else{
+              date3= date3.concat([res.Data[i].TransDate]);
+              Trans_Quantity3= Trans_Quantity3.concat([weekTrans3]);
+              Avg_Price3= Avg_Price3.concat([parseInt(weekAvg3/weekp3)]);
+              week3=0;
+              weekTrans3=0;
+              weekAvg3=0;
+              weekp3=0;
+            }
+            
+          } 
+         
+            
+        } 
+        
+      }
+
+      console.log(date3);
+    
+      
+          
+        Highcharts.chart('container3', {
+    chart: {
+      zoomType: 'xy',
+      width:800
+    },
+    title: {
+      text: '每周趨勢圖(一年半以來)',
+      align: 'left'
+    },
+    subtitle: {
+      text: '<%= D %>'
+    },
+    xAxis: [{
+      categories:  date3,
+      crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+      labels: {
+        format: '{value}(元/公斤)',
+        style: {
+          color: '#ED561B'
+        }
+      },
+      title: {
+        text: '價格',
+        style: {
+          color: '#ED561B'
+        }
+      }
+    }, { // Secondary yAxis
+      title: {
+        text: '成交量',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      labels: {
+        format: '{value} 公噸',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'left',
+      x: 80,
+      verticalAlign: 'top',
+      y: 80,
+      floating: true,
+      backgroundColor:
+        Highcharts.defaultOptions.legend.backgroundColor || // theme
+        'rgba(255,255,255,0.25)'
+    },
+    series: [{
+      name: '交易量',
+      type: 'column',
+      yAxis: 1,
+      data: Trans_Quantity3,
+        
+      tooltip: {
+        valueSuffix: '公噸'
+      }
+  
+    }, {
+      name: '價格',
+      type: 'spline',
+      data:  Avg_Price3,
+        color:'#ED561B',
+      tooltip: {
+        valueSuffix: '(元/公斤)'
+      }
+    }]
+  });
+    
+
+
+          $(".p5").html(Avg_Price3[Avg_Price3.length-1]);
+          $(".n3").html('推薦NO.3芹菜-水耕');
+          $(".t3").html('本周平均交易價');
+          $(".tq3").html(Trans_Quantity3[Trans_Quantity3.length-1]);
+          $(".p6").html((Avg_Price3[Avg_Price3.length-1]*1.67));
+    
+});
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var date4=new Array;
+    var Trans_Quantity4=new Array;
+    var Avg_Price4=new Array;
+
+    var week4=0;
+    var weekdate4=0;
+    var weekTrans4=0;
+    var weekAvg4=0;
+
+    var weekp4=0;
+
+
+$.get("https://data.coa.gov.tw/api/v1/AgriProductsTransType/?Start_time="+(Yearold)+'.'+ (Monthold)+'.'+getDate+"&End_time="+(Year)+'.'+ (Month)+'.'+getDate+"&CropCode=LM8&MarketName=<%= D %>",
+    function(res){ console.log(res.Data);
+      
+      for(i=res.Data.length;i>=1;i--){
+
+        if(res.Data[i]){
+          week4++;
+          if(res.Data[i].CropName=='莧菜-水耕' || res.Data[i].CropName=='休市'){
+            //if(res.Data[i].CropName=='莧菜-水耕'){
+              weekp4++;
+           // }
+            if(week4<7){
+              weekTrans4=weekTrans4+res.Data[i].Trans_Quantity;
+              weekAvg4 =weekAvg4+res.Data[i].Avg_Price;
+            }else{
+              date4= date4.concat([res.Data[i].TransDate]);
+              Trans_Quantity4= Trans_Quantity4.concat([weekTrans4]);
+              Avg_Price4= Avg_Price4.concat([parseInt(weekAvg4/weekp4)]);
+              week4=0;
+              weekTrans4=0;
+              weekAvg4=0;
+              weekp4=0;
+            }
+            
+          } 
+         
+            
+        } 
+        
+      }
+
+      console.log(date4);
+    
+      
+          
+        Highcharts.chart('container4', {
+    chart: {
+      zoomType: 'xy',
+      width:800
+    },
+    title: {
+      text: '每周趨勢圖(一年半以來)',
+      align: 'left'
+    },
+    subtitle: {
+      text: '<%= D %>'
+    },
+    xAxis: [{
+      categories:  date4,
+      crosshair: true
+    }],
+    yAxis: [{ // Primary yAxis
+      labels: {
+        format: '{value}(元/公斤)',
+        style: {
+          color: '#ED561B'
+        }
+      },
+      title: {
+        text: '價格',
+        style: {
+          color: '#ED561B'
+        }
+      }
+    }, { // Secondary yAxis
+      title: {
+        text: '成交量',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      labels: {
+        format: '{value} 公噸',
+        style: {
+          color: Highcharts.getOptions().colors[0]
+        }
+      },
+      opposite: true
+    }],
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'left',
+      x: 80,
+      verticalAlign: 'top',
+      y: 80,
+      floating: true,
+      backgroundColor:
+        Highcharts.defaultOptions.legend.backgroundColor || // theme
+        'rgba(255,255,255,0.25)'
+    },
+    series: [{
+      name: '交易量',
+      type: 'column',
+      yAxis: 1,
+      data: Trans_Quantity4,
+        
+      tooltip: {
+        valueSuffix: '公噸'
+      }
+  
+    }, {
+      name: '價格',
+      type: 'spline',
+      data:  Avg_Price4,
+        color:'#ED561B',
+      tooltip: {
+        valueSuffix: '(元/公斤)'
+      }
+    }]
+  });
+    
+
+
+          $(".p7").html(Avg_Price4[Avg_Price4.length-1]);
+          $(".n4").html('推薦NO.4莧菜-水耕');
+          $(".t4").html('本周平均交易價');
+          $(".tq4").html(Trans_Quantity4[Trans_Quantity4.length-1]);
+          $(".p8").html((Avg_Price4[Avg_Price4.length-1]*1.67));
+    
+});
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
