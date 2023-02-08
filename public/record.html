@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+    <head>
+        <!--指定網頁所使用的編碼-->
+        <meta charset="utf-8">
+        <!--網頁標題-->
+        <title>植物工廠滴灌養殖系統</title>
+        <!-- Boostrap 導入程式 -->
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="./stylesheets/bootstrap.min.css">
+        <script src="./javascripts/bootstrap.min.js"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="/stylesheets/w3.css">
+
+        
+        <link rel="stylesheet/less" href="stylesheets/navigation.less">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.12.2/less.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="javascripts/jquery-tablepage-1.0.js"></script>
+    </head>
+<body>
+  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+    <aside class="sidebar">
+        <div id="leftside-navigation" class="nano">
+          <nav class="navbar">
+            <ul class="navbar__menu">
+              <li class="navbar__item">
+                <a href="index.html" class="navbar__link"><iconify-icon icon="heroicons:arrow-left-on-rectangle" style="font-size:xx-large; color: #000;"></iconify-icon><span>exit</span></a>
+              </li>
+              <li class="navbar__item">
+                <a href="home.html" class="navbar__link"><iconify-icon icon="carbon:agriculture-analytics" style="font-size:xx-large; color: #000;"></iconify-icon><span>監控系統</span></a>        
+              </li>
+              <li class="navbar__item">
+                <a href="record.html" class="navbar__link"><iconify-icon icon="quill:cloudia" style="font-size:xx-large; color: #000;"></iconify-icon><span>資料庫查詢</span></a>        
+              </li>
+              <li class="navbar__item">
+                <a href="openapi.html" class="navbar__link"><iconify-icon icon="bx:bar-chart-alt" style="font-size:xx-large; color: #000;"></iconify-icon><span>市場價格</span></a>        
+              </li>
+              <div class="navbar__link" style="width: 80px;">
+                
+              </div>
+              <div class="navbar__link" style="width: 80px;">
+                
+              </div>
+              <div class="navbar__link" style="width: 80px;">
+                <span>喵</span>
+                <img src="../images/catt.gif"  alt="">
+              </div>
+            </ul>
+            
+          </nav>
+        </div>
+
+        <div id="rightside-navigation2" class="nano">
+
+         <script>
+         
+              
+          
+
+          function record(x) {
+            var date =x.value;
+            var x1='';
+            var x2='';
+            for (var i=0; i<10; i++){
+               x1=x1+date[i];
+            }
+            for (var i=22; i<41; i++){
+               x2=x2+date[i];
+            }
+            $.get("/eprecord/"+x1+'/'+x2,function(res, status){ $("#resume").html(res); });
+
+           
+          }
+          record();
+          function Certificate1() {
+            
+           
+            $("li").removeClass('active'); 
+            $(".1").addClass('active');
+            
+              
+            }
+            
+            function Certificate2() {
+                $("li").removeClass('active'); 
+                $(".2").addClass('active');
+            
+            } 
+            function Certificate3() {
+                $("li").removeClass('active'); 
+                $(".3").addClass('active');
+            
+            }
+                            //exporte les données sélectionnées
+            var $table = $('#table');
+                $(function () {
+                    $('#toolbar').find('select').change(function () {
+                        $table.bootstrapTable('refreshOptions', {
+                            exportDataType: $(this).val()
+                        });
+                    });
+                })
+
+                var trBoldBlue = $("table");
+
+              $(trBoldBlue).on("click", "tr", function (){
+                  $(this).toggleClass("bold-blue");
+              });
+                      
+        </script>
+ 
+        <br>
+        
+          
+          <ul class="nav nav-tabs">
+
+             
+            <li class="1 active"><a data-toggle="tab"  href="#" onclick="Certificate1(this.value)">數值紀錄</a></li>
+             <!--<li class="2 "><a data-toggle="tab" href="#" onclick="Certificate2()">啟動紀錄</a></li>
+            <li class="3 "><a data-toggle="tab" href="#" onclick="Certificate3()">專案紀錄</a></li>-->
+            
+          </ul>
+          
+          
+         
+<!--載入連結-->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.min.css" rel="stylesheet"></link>
+<!--載入連結-->
+
+<!--要選取日期的元素-->
+<div class="box">
+  <label for="datePicker">datetime</label>
+  <input type="text" name="datePicker" class="datePicker" id="datePicker" onchange="record(this)">
+ </div>
+<!--要選取日期的元素-->
+<script>
+$('input[name="datePicker"]').daterangepicker({
+  timePicker: true, //顯示時間
+  timePicker24Hour: true, //時間制
+  timePickerSeconds: true, //時間顯示到秒
+  startDate: moment().hours(0).minutes(0).seconds(0), //設定開始日期
+  endDate: moment(new Date()), //設定結束器日期
+  maxDate: moment(new Date()), //設定最大日期
+  "opens": "center",
+  ranges: {
+   // '今天': [moment(), moment()],
+   '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+   '上週': [moment().subtract(6, 'days'), moment()],
+   '前30天': [moment().subtract(29, 'days'), moment()],
+   '本月': [moment().startOf('month'), moment().endOf('month')],
+   '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+  },
+  showWeekNumbers: true,
+  locale: {
+   format: "YYYY-MM-DD HH:mm:ss", //設定顯示格式
+   applyLabel: '確定', //確定按鈕文字
+   cancelLabel: '取消', //取消按鈕文字
+   customRangeLabel: '自定義',
+   daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+   monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+    '七月', '八月', '九月', '十月', '十一月', '十二月'
+   ],
+   firstDay: 1
+  },
+ }, function(start, end, label) {
+  timeRangeChange = [start.format('YYYY-MM-DD HH:mm:ss'), end.format('YYYY-MM-DD HH:mm:ss')];
+  console.log(timeRangeChange);
+ });
+  </script>
+<!--執行 Date Range Picker-->
+        <div class="center">
+          <div id="chart_div">
+        </div>
+        
+
+        </div>
+        
+        <div id="resume">
+          
+              
+         
+        </div>
+       
+          
+        
+
+
+
+        </div>
+      </aside>
+
+      
+        
+
+
+</body>
+</html>
